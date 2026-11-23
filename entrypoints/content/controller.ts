@@ -105,6 +105,7 @@ export class WidgetController {
     // Un campo puede estar enfocado antes de que cargue el content script.
     const activeElement = document.activeElement;
     if (this.state.settings.active && isSupportedField(activeElement)) {
+      this.repositionHost(activeElement);
       this.patch({ target: activeElement, rect: rectOf(activeElement) });
     }
   }
@@ -153,6 +154,7 @@ export class WidgetController {
   }
 
   hide(): void {
+    this.repositionHost(null);
     this.patch({
       target: null,
       rect: null,
@@ -200,13 +202,35 @@ export class WidgetController {
     for (const listener of this.listeners) listener();
   }
 
+  private repositionHost(target: HTMLElement | null): void {
+    const defaultParent = document.body ?? document.documentElement;
+    if (!target || !target.isConnected) {
+      if (this.host.parentElement !== defaultParent && defaultParent) {
+        defaultParent.appendChild(this.host);
+      }
+      return;
+    }
+
+    // Si el elemento está dentro de un <dialog>, un popover o un contenedor modal
+    // (como la modal de Easy Apply de LinkedIn en el Top Layer):
+    const dialogContainer = target.closest<HTMLElement>(
+      'dialog, [popover], [role="dialog"], [role="alertdialog"], .artdeco-modal, [data-testid*="dialog"]',
+    );
+    const destination = dialogContainer ?? defaultParent;
+    if (this.host.parentElement !== destination && destination) {
+      destination.appendChild(this.host);
+    }
+  }
+
   private onFocusIn = (event: FocusEvent): void => {
     if (!this.state.settings.active) return;
     if (event.composedPath().includes(this.host)) return;
 
     const target = event.target;
     if (!isSupportedField(target)) return;
-    if (target === this.state.target) return;
+    if (target === this.state.target && this.state.rect !== null) return;
+
+    this.repositionHost(target);
 
     this.patch({
       target,

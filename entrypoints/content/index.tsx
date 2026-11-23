@@ -33,7 +33,9 @@ function mountWidget(ctx: InvalidationContext): void {
   const container = document.createElement('div');
   container.className = 'tintero-root';
   shadow.append(container);
-  document.documentElement.append(host);
+
+  const mountTarget = document.body ?? document.documentElement;
+  mountTarget.append(host);
 
   const root = createRoot(container);
   const controller = new WidgetController(host, container);
