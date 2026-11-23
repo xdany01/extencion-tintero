@@ -1,0 +1,410 @@
+/* ============================================================
+   Widget flotante (vive dentro de un Shadow DOM)
+   ============================================================ */
+
+.tintero-root {
+  position: static;
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: left;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tintero-root *,
+.tintero-root *::before,
+.tintero-root *::after {
+  box-sizing: border-box;
+}
+
+.tintero-root :where(button) {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.tintero-root :where(ul) {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tintero-root :where(input) {
+  font: inherit;
+  color: inherit;
+}
+
+.tintero-root :where(svg) {
+  display: block;
+  flex: none;
+}
+
+/* ---------- Botón flotante ---------- */
+
+.tintero-trigger {
+  position: fixed;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--paper-raised);
+  color: var(--accent);
+  box-shadow: var(--shadow-btn);
+  pointer-events: auto;
+  opacity: 0.85;
+  transition:
+    transform 0.16s ease,
+    opacity 0.16s ease,
+    background-color 0.16s ease,
+    color 0.16s ease;
+  animation: tintero-in 0.18s ease-out;
+}
+
+.tintero-trigger:hover {
+  opacity: 1;
+  transform: translateY(-1px) rotate(-8deg);
+}
+
+.tintero-trigger.is-open {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper-raised);
+  opacity: 1;
+  transform: rotate(-8deg);
+}
+
+.tintero-trigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- Panel ---------- */
+
+.tintero-panel {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  pointer-events: auto;
+  font-family: var(--sans);
+  animation: tintero-pop 0.16s ease-out;
+}
+
+.tintero-tape {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  width: 68px;
+  height: 17px;
+  transform: translateX(-50%) rotate(-2.5deg);
+  background: var(--tape);
+  border-left: 1px dashed rgba(255, 255, 255, 0.4);
+  border-right: 1px dashed rgba(255, 255, 255, 0.4);
+  box-shadow: 0 1px 2px rgba(60, 45, 20, 0.14);
+  pointer-events: none;
+}
+
+.tintero-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  padding: 10px 10px 8px 12px;
+  border-bottom: 1px dashed var(--line);
+}
+
+.tintero-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.tintero-brand svg {
+  color: var(--accent);
+}
+
+.tintero-count {
+  margin-left: auto;
+  padding: 1px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-faint);
+  font-family: var(--mono);
+  font-size: 9.5px;
+  line-height: 1.5;
+}
+
+.tintero-x {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  color: var(--ink-faint);
+}
+
+.tintero-x:hover {
+  background: var(--paper-sunken);
+  color: var(--ink);
+}
+
+/* ---------- Filtro ---------- */
+
+.tintero-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  margin: 8px 10px 6px;
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--paper);
+  color: var(--ink-faint);
+}
+
+.tintero-search:focus-within {
+  border-color: var(--accent);
+}
+
+.tintero-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  outline: none;
+  color: var(--ink);
+  font-size: 12.5px;
+}
+
+.tintero-search input::placeholder {
+  color: var(--ink-faint);
+}
+
+/* ---------- Lista ---------- */
+
+.tintero-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 2px 6px 6px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+.tintero-item {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 8px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  text-align: left;
+}
+
+.tintero-item:hover {
+  background: var(--paper-sunken);
+}
+
+.tintero-item.is-active {
+  background: var(--paper-sunken);
+  border-color: var(--line);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+.tintero-item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.tintero-rank {
+  flex: none;
+  padding-top: 1px;
+  color: var(--ink-faint);
+  font-family: var(--mono);
+  font-size: 9.5px;
+}
+
+.tintero-item-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.tintero-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.tintero-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 14.5px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tintero-score {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex: none;
+}
+
+.tintero-meter {
+  display: block;
+  width: 32px;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--line);
+}
+
+.tintero-meter > i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+}
+
+.tintero-pct {
+  color: var(--ink-faint);
+  font-family: var(--mono);
+  font-size: 9px;
+}
+
+.tintero-text {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow-wrap: anywhere;
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.tintero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 1px;
+}
+
+.tintero-badge {
+  padding: 0 6px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 999px;
+  color: var(--ink-faint);
+  font-family: var(--mono);
+  font-size: 9px;
+  line-height: 1.6;
+}
+
+.tintero-badge.is-match {
+  border-style: solid;
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+/* ---------- Vacío y pie ---------- */
+
+.tintero-empty {
+  padding: 16px 14px 20px;
+  text-align: center;
+}
+
+.tintero-empty p {
+  margin: 0 0 10px;
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.tintero-empty button {
+  padding: 5px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  background: var(--paper);
+  font-size: 11.5px;
+}
+
+.tintero-empty button:hover {
+  background: var(--paper-sunken);
+}
+
+.tintero-foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+  padding: 5px 12px 6px;
+  border-top: 1px dashed var(--line);
+  color: var(--ink-faint);
+  font-size: 10px;
+}
+
+.tintero-foot span {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.tintero-foot kbd {
+  display: inline-block;
+  padding: 0 4px;
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 3px;
+  background: var(--paper);
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+/* ---------- Animaciones ---------- */
+
+@keyframes tintero-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes tintero-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.985);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tintero-trigger,
+  .tintero-panel {
+    animation: none;
+  }
+}

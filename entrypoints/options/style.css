@@ -1,0 +1,306 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(80% 50% at 50% -10%, rgba(255, 255, 255, 0.55), transparent 62%),
+    repeating-linear-gradient(0deg, rgba(76, 58, 28, 0.018) 0 1px, transparent 1px 5px);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 13px;
+}
+
+[data-theme="dark"] body {
+  background-image:
+    radial-gradient(80% 50% at 50% -10%, rgba(255, 244, 220, 0.05), transparent 62%),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 5px);
+}
+
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 30px 24px 72px;
+}
+
+/* ---------- Cabecera ---------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 26px;
+  padding-bottom: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand .mark.lg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--paper-raised);
+  color: var(--accent);
+  box-shadow: var(--shadow-btn);
+}
+
+/* Desplazar el bloque de título y descripción para que el icono y el título
+   queden centrados en la misma línea vertical de la cabecera. */
+.brand > div {
+  margin-top: 19px;
+}
+
+.brand h1 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+}
+
+.brand p {
+  margin: 3px 0 0;
+  color: var(--ink-faint);
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ---------- Rejilla ---------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 400px) minmax(0, 1fr);
+  gap: 26px;
+  align-items: start;
+}
+
+/* ---------- Formulario ---------- */
+
+.form-card {
+  position: sticky;
+  top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+}
+
+.form-card h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 2px;
+}
+
+/* ---------- Lista ---------- */
+
+.list-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.list-head h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.count {
+  padding: 1px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-faint);
+  font-family: var(--mono);
+  font-size: 9.5px;
+}
+
+.uses {
+  color: var(--ink-faint);
+  font-family: var(--sans);
+  font-size: 10.5px;
+  font-weight: 400;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 220px;
+  max-width: 100%;
+  padding: 6px 9px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--paper-raised);
+  color: var(--ink-faint);
+}
+
+.search:focus-within {
+  border-color: var(--accent);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  outline: none;
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.search input::placeholder {
+  color: var(--ink-faint);
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.snippet {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+}
+
+.snippet-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.snippet-head h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.snippet-actions {
+  display: flex;
+  gap: 2px;
+  flex: none;
+}
+
+.snippet-text {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--ink-soft);
+  font-size: 12.5px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.snippet-foot {
+  display: flex;
+  gap: 4px;
+  color: var(--ink-faint);
+  font-family: var(--mono);
+  font-size: 10px;
+}
+
+.loading {
+  color: var(--ink-faint);
+  font-size: 12px;
+}
+
+.empty-block {
+  padding: 6px;
+}
+
+/* ---------- Ayuda ---------- */
+
+.help {
+  margin-top: 26px;
+  padding: 14px 18px;
+}
+
+.help summary {
+  cursor: pointer;
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.help summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.help p {
+  max-width: 92ch;
+  margin: 10px 0 0;
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.help code {
+  padding: 0 4px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--paper);
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-card {
+    position: static;
+  }
+
+  .page {
+    padding: 22px 16px 56px;
+  }
+}
